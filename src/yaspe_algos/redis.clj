@@ -11,5 +11,22 @@
 (defn ping []
   (println (wcar* (car/ping))))
 
+
+(defn get-seasons []
+  (wcar* (car/lrange "seasons" 0 -1)))
+
+(defn get-rounds [season]
+  (wcar* (car/lrange (str "games:" season) 0 -1)))
+
+(defn get-games [round-key]
+  (wcar* (car/lrange round-key 0 -1)))
+
 (defn get-game [key]
   (keywordize-keys (apply hash-map (wcar* (car/hgetall key)))))
+
+(defn get-teams [season]
+  (wcar* (car/lrange (str "teams:" season) 0 -1)))
+
+
+(defn set-value [key value]
+  (wcar* (car/set key value)))

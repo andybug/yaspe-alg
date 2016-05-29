@@ -1,8 +1,10 @@
 (ns yaspe-algos.core
-  (:require [yaspe-algos.redis])
+  (:require [yaspe-algos.redis :as redis])
+  (:require [yaspe-algos.elo])
   (:gen-class))
 
-(defn -main
-  "I don't do a whole lot ... yet."
-  [& args]
-  (yaspe-algos.redis/ping))
+(defn -main [& args]
+  (doseq [season (redis/get-seasons)]
+    (doseq [round (redis/get-rounds season)]
+      (println season round)
+      (yaspe-algos.elo/process-round season round (redis/get-games round)))))
