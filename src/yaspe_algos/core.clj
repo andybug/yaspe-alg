@@ -3,12 +3,12 @@
   (:require [yaspe-algos.elo])
   (:gen-class))
 
-(defn init-algos [last-season]
-  (yaspe-algos.elo/init last-season))
+(def algorithm-inits '(#'yaspe-algos.elo/init))
+
+(defn init-algorithms [teams]
+  (yaspe-algos.elo/init {} teams))
 
 (defn -main [& args]
-  (let [seasons (redis/get-seasons)]
-    (init-algos (last (sort seasons)))
-    (doseq [season (redis/get-seasons)]
-      (doseq [round (redis/get-rounds season)]
-        (yaspe-algos.elo/process-round season round (redis/get-games round))))))
+  (let [seasons (redis/get-seasons)
+        teams (redis/get-teams (last (sort seasons)))]
+    (println (init-algorithms teams))))
