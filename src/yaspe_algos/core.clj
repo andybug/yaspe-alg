@@ -3,10 +3,13 @@
   (:require [yaspe-algos.elo])
   (:gen-class))
 
-(def algorithm-inits '(#'yaspe-algos.elo/init))
+(def algorithms '("elo"))
+
+(defn gen-init-function [a]
+  (resolve (symbol (str "yaspe-algos." a) "init")))
 
 (defn init-algorithms [teams]
-  (yaspe-algos.elo/init {} teams))
+  (map (fn [x] (x teams)) (map gen-init-function algorithms)))
 
 (defn -main [& args]
   (let [seasons (redis/get-seasons)

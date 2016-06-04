@@ -7,7 +7,7 @@
 (defn init-team [team]
   (hash-map team elo-default))
 
-(defn init [state teams]
+(defn init [teams]
   (apply conj (map init-team teams)))
 
 ;(defn process-game [game]
