@@ -4,6 +4,9 @@
 
 (def elo-default 1200)
 
+(defn info []
+  {:name "elo"})
+
 (defn init-team [team]
   (hash-map team elo-default))
 
