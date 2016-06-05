@@ -10,6 +10,17 @@
 (defn init [teams]
   (apply conj (map init-team teams)))
 
+(defn process-game [state game]
+  (let [hteam (get game :home_team)
+        ateam (get game :away_team)
+        helo (get state hteam)
+        aelo (get state ateam)
+        hscore (read-string (get game :home_score))
+        ascore (read-string (get game :away_score))]
+    (if (> hscore ascore)
+        (assoc state hteam (inc helo) ateam (dec aelo))
+        (assoc state hteam (dec helo) ateam (inc aelo)))))
+
 ;(defn process-game [game]
 ;  (let [home (get game :home_team)
 ;        away (get game :away_team)]
