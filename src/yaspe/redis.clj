@@ -1,4 +1,4 @@
-(ns yaspe-algos.redis
+(ns yaspe.redis
   (:require [taoensso.carmine :as car :refer (wcar)])
   (:gen-class))
 

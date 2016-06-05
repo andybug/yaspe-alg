@@ -1,12 +1,12 @@
-(ns yaspe-algos.core
-  (:require [yaspe-algos.redis :as redis])
-  (:require [yaspe-algos.elo])
+(ns yaspe.core
+  (:require [yaspe.redis :as redis])
+  (:require [yaspe.elo])
   (:gen-class))
 
 (def algorithms '("elo"))
 
 (defn gen-init-function [a]
-  (resolve (symbol (str "yaspe-algos." a) "init")))
+  (resolve (symbol (str "yaspe." a) "init")))
 
 (defn init-algorithms [teams]
   (map (fn [x] (x teams)) (map gen-init-function algorithms)))
@@ -37,4 +37,4 @@
 (defn -main [& args]
   (let [seasons (redis/get-seasons)
         teams (redis/get-teams (last (sort seasons)))]
-    (println (process-seasons (list (resolve (symbol "yaspe-algos.elo" "process-game"))) (init-algorithms teams) seasons))))
+    (println (process-seasons (list (resolve (symbol "yaspe.elo" "process-game"))) (init-algorithms teams) seasons))))

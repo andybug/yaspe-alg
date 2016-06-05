@@ -1,6 +1,6 @@
-(ns yaspe-algos.core-test
+(ns yaspe.core-test
   (:require [clojure.test :refer :all]
-            [yaspe-algos.core :refer :all]))
+            [yaspe.core :refer :all]))
 
 (deftest a-test
   (testing "FIXME, I fail."

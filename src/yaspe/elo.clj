@@ -1,5 +1,5 @@
-(ns yaspe-algos.elo
-  (:require [yaspe-algos.redis :as redis])
+(ns yaspe.elo
+  (:require [yaspe.redis :as redis])
   (:gen-class))
 
 (def elo-default 1200)
