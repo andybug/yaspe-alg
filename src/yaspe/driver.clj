@@ -33,7 +33,7 @@
     info
     nil))
 
-(defn init-algorithms
+(defn get-algorithms
   "Calls info function for each algorithm, validates, then
   returns the list of info maps"
   []
@@ -41,3 +41,16 @@
     (if (not (some? alg-info))
       (throw (Exception. "no info function for algorithm"))
       (validate-info-map (alg-info)))))
+
+(defn init-algorithms
+  "Calls init function for each algorithm and returns the
+  mutated algorithm list with the new state"
+  [teams]
+  ;;(map (fn [a] ((get a :init) teams)) (get-algorithms))
+  (for [a (get-algorithms)]
+    (assoc a :state ((get a :init) teams))))
+
+
+;; execution ---------------------------------------------------------
+
+(defn run [])
